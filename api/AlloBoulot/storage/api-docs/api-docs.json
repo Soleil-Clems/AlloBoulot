@@ -1,0 +1,3257 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "Documentation de l'API Laravel",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Serveur local"
+        }
+    ],
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Inscription d'un nouvel utilisateur",
+                "description": "Crée un nouveau compte utilisateur",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Doe"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "123 rue Example"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 20,
+                                        "example": "+33612345678"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "minLength": 6,
+                                        "example": "testtest"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "testtest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Inscription réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Inscription réussie. Vous pouvez désormais vous connecter"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "test@gmail.com"
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "example": "1990-01-01"
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "123 rue Example"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "+33612345678"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "user"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur de validation"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Connexion utilisateur",
+                "description": "Authentifie un utilisateur et renvoie un token JWT",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "testtest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@example.com"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "user"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "integer",
+                                            "example": 3600
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Identifiants invalides",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Identifiants invalides."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Impossible de créer le token."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Déconnexion utilisateur",
+                "description": "Révoque le token JWT de l'utilisateur authentifié",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "Déconnexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Déconnexion réussie."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token invalide ou déjà expiré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token invalide ou déjà expiré."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Récupérer l'utilisateur authentifié",
+                "description": "Retourne les informations de l'utilisateur actuellement connecté",
+                "operationId": "7c1cf647d76fad4b3eb1549fa4fe2f4c",
+                "responses": {
+                    "200": {
+                        "description": "Informations de l'utilisateur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "first_name": {
+                                            "type": "string",
+                                            "example": "John"
+                                        },
+                                        "last_name": {
+                                            "type": "string",
+                                            "example": "Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "john@example.com"
+                                        },
+                                        "birth_date": {
+                                            "type": "string",
+                                            "example": "1990-01-01"
+                                        },
+                                        "address": {
+                                            "type": "string",
+                                            "example": "123 rue Example"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "+33612345678"
+                                        },
+                                        "role": {
+                                            "type": "string",
+                                            "example": "user"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Non authentifié."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Liste des catégories",
+                "description": "Récupère la liste de toutes les catégories",
+                "operationId": "3f5817a34833d0a1f4af4548dd3aeaba",
+                "responses": {
+                    "200": {
+                        "description": "Liste des catégories récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Plomberie"
+                                                    },
+                                                    "icon": {
+                                                        "type": "string",
+                                                        "example": "wrench"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur lors de la récupération des catégories."
+                                        },
+                                        "details": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Créer une catégorie",
+                "description": "Crée une nouvelle catégorie (Admin uniquement)",
+                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 100,
+                                        "example": "Plomberie"
+                                    },
+                                    "icon": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "wrench"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Catégorie créée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie créée avec succès."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Plomberie"
+                                                },
+                                                "icon": {
+                                                    "type": "string",
+                                                    "example": "wrench"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Accès refusé. Seuls les administrateurs peuvent créer des catégories."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Afficher une catégorie",
+                "description": "Récupère les détails d'une catégorie spécifique",
+                "operationId": "c68e76d323c008827a9e47398b1583de",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la catégorie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Catégorie récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Plomberie"
+                                                },
+                                                "icon": {
+                                                    "type": "string",
+                                                    "example": "wrench"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Catégorie introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie introuvable."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Mettre à jour une catégorie",
+                "description": "Met à jour une catégorie existante (Admin uniquement)",
+                "operationId": "0e686b2748211cc688333ed705dc111f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la catégorie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 100,
+                                        "example": "Électricité"
+                                    },
+                                    "icon": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "bolt"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Catégorie mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie mise à jour avec succès."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Électricité"
+                                                },
+                                                "icon": {
+                                                    "type": "string",
+                                                    "example": "bolt"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Catégorie introuvable"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Supprimer une catégorie",
+                "description": "Supprime une catégorie (Admin uniquement)",
+                "operationId": "4c12e22a7f8c617bd83bfa1fdc05428d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la catégorie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Catégorie supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie supprimée avec succès."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Catégorie introuvable"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/companies": {
+            "get": {
+                "tags": [
+                    "Companies"
+                ],
+                "summary": "Liste des entreprises",
+                "description": "Récupère la liste de toutes les entreprises (Admin uniquement)",
+                "operationId": "54f966c056050f9db4fff6ee5a45a76a",
+                "responses": {
+                    "200": {
+                        "description": "Liste des entreprises récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Ma Société"
+                                                    },
+                                                    "logo": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/logo.png"
+                                                    },
+                                                    "address": {
+                                                        "type": "string",
+                                                        "example": "123 rue de Paris"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Description de l'entreprise"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vous n'avez pas les droits nécessaires pour cette action"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Companies"
+                ],
+                "summary": "Créer une entreprise",
+                "description": "Crée une nouvelle entreprise",
+                "operationId": "00e2db7b0f71c32b377f4dfc4dd685a8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Ma Société"
+                                    },
+                                    "logo": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "https://example.com/logo.png"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "123 rue de Paris"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Description de l'entreprise"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Entreprise créée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Entreprise créée avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Ma Société"
+                                                },
+                                                "logo": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/logo.png"
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "123 rue de Paris"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Description de l'entreprise"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/companies/{id}": {
+            "get": {
+                "tags": [
+                    "Companies"
+                ],
+                "summary": "Afficher une entreprise",
+                "description": "Récupère les détails d'une entreprise spécifique",
+                "operationId": "01c261c039e4b27beeb888ef46bd86db",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Entreprise récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Ma Société"
+                                                },
+                                                "logo": {
+                                                    "type": "string",
+                                                    "example": "https://example.com/logo.png"
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "123 rue de Paris"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Description de l'entreprise"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Entreprise introuvable"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Companies"
+                ],
+                "summary": "Mettre à jour une entreprise",
+                "description": "Met à jour les informations d'une entreprise",
+                "operationId": "6a1d7a4a2b9cbdfe7749cef78e6cec57",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Ma Société Modifiée"
+                                    },
+                                    "logo": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "https://example.com/new-logo.png"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "456 avenue des Champs"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nouvelle description"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Entreprise mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Entreprise mise à jour avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Ma Société Modifiée"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Entreprise introuvable"
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Companies"
+                ],
+                "summary": "Supprimer une entreprise",
+                "description": "Supprime une entreprise",
+                "operationId": "49d767f608bffc95ad39368bf1766693",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Entreprise supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Company supprimée avec succès."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Entreprise introuvable"
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/companies/{id}/add-employee": {
+            "post": {
+                "tags": [
+                    "Companies - Employees"
+                ],
+                "summary": "Ajouter un employé",
+                "description": "Ajoute un employé à une entreprise",
+                "operationId": "2fe3068c70450fc1e0b09223747594aa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "role": {
+                                        "description": "Par défaut: employee",
+                                        "type": "string",
+                                        "enum": [
+                                            "employee",
+                                            "rh"
+                                        ],
+                                        "example": "employee"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Employé ajouté avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Employé ajouté avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Entreprise ou utilisateur introuvable"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/companies/{id}/remove-employee": {
+            "delete": {
+                "tags": [
+                    "Companies - Employees"
+                ],
+                "summary": "Retirer un employé",
+                "description": "Retire un employé d'une entreprise",
+                "operationId": "62bc03b05a54948f9037a8973e47fda0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Employé retiré avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Employé retiré avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Entreprise ou utilisateur introuvable"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/companies/{id}/change-role": {
+            "patch": {
+                "tags": [
+                    "Companies - Employees"
+                ],
+                "summary": "Changer le rôle d'un employé",
+                "description": "Modifie le rôle d'un employé dans une entreprise",
+                "operationId": "309b4b8e790bbc8e2d41e75cd5e2c588",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "role"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "enum": [
+                                            "creator",
+                                            "employee",
+                                            "rh"
+                                        ],
+                                        "example": "rh"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rôle modifié avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Rôle de l'employé modifié avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Entreprise ou utilisateur introuvable"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/job-applications": {
+            "post": {
+                "tags": [
+                    "Job Applications"
+                ],
+                "summary": "Postuler à une offre d'emploi",
+                "description": "Permet à un utilisateur de postuler à une offre d'emploi avec son CV et lettre de motivation",
+                "operationId": "f3347c0843b47753de8374660d410d29",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "job_offer_id",
+                                    "resume_ref"
+                                ],
+                                "properties": {
+                                    "job_offer_id": {
+                                        "description": "ID de l'offre d'emploi",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Je suis très intéressé par ce poste..."
+                                    },
+                                    "resume_ref": {
+                                        "description": "CV (PDF, DOCX, max 10MB)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "motivation_ref": {
+                                        "description": "Lettre de motivation (PDF, DOCX, max 10MB)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Candidature envoyée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Candidature envoyée avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "job_offer_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Je suis très intéressé..."
+                                                },
+                                                "resume_ref": {
+                                                    "type": "string",
+                                                    "example": "/storage/resumes/cv_123.pdf"
+                                                },
+                                                "motivation_ref": {
+                                                    "type": "string",
+                                                    "example": "/storage/motivations/lettre_123.pdf"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/job-applications/offer/{offerId}": {
+            "get": {
+                "tags": [
+                    "Job Applications"
+                ],
+                "summary": "Liste des candidatures pour une offre",
+                "description": "Récupère toutes les candidatures pour une offre d'emploi spécifique (RH/Admin uniquement)",
+                "operationId": "978f50f779f16119d9e75646d570adb9",
+                "parameters": [
+                    {
+                        "name": "offerId",
+                        "in": "path",
+                        "description": "ID de l'offre d'emploi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des candidatures récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "job_offer_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "message": {
+                                                        "type": "string",
+                                                        "example": "Je suis très intéressé..."
+                                                    },
+                                                    "resume_ref": {
+                                                        "type": "string",
+                                                        "example": "/storage/resumes/cv_123.pdf"
+                                                    },
+                                                    "motivation_ref": {
+                                                        "type": "string",
+                                                        "example": "/storage/motivations/lettre_123.pdf"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "user": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 5
+                                                            },
+                                                            "first_name": {
+                                                                "type": "string",
+                                                                "example": "Jean"
+                                                            },
+                                                            "last_name": {
+                                                                "type": "string",
+                                                                "example": "Dupont"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "jean@example.com"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Offre d'emploi introuvable"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/job-applications/{applicationId}/status": {
+            "put": {
+                "tags": [
+                    "Job Applications"
+                ],
+                "summary": "Mettre à jour le statut d'une candidature",
+                "description": "Modifie le statut d'une candidature (RH/Admin uniquement)",
+                "operationId": "ba8db0678850cfa745ab6fe7da68e6ab",
+                "parameters": [
+                    {
+                        "name": "applicationId",
+                        "in": "path",
+                        "description": "ID de la candidature",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "status"
+                                ],
+                                "properties": {
+                                    "status": {
+                                        "description": "Nouveau statut de la candidature",
+                                        "type": "string",
+                                        "enum": [
+                                            "pending",
+                                            "interview",
+                                            "test",
+                                            "accepted"
+                                        ],
+                                        "example": "interview"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Statut mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Statut mis à jour avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "interview"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Candidature introuvable"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/job-applications/my": {
+            "get": {
+                "tags": [
+                    "Job Applications"
+                ],
+                "summary": "Mes candidatures",
+                "description": "Récupère toutes les candidatures de l'utilisateur connecté",
+                "operationId": "1d6fef4b62175f30e5d31c7cbc1e814b",
+                "responses": {
+                    "200": {
+                        "description": "Liste de mes candidatures récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "job_offer_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "message": {
+                                                        "type": "string",
+                                                        "example": "Je suis très intéressé..."
+                                                    },
+                                                    "resume_ref": {
+                                                        "type": "string",
+                                                        "example": "/storage/resumes/cv_123.pdf"
+                                                    },
+                                                    "motivation_ref": {
+                                                        "type": "string",
+                                                        "example": "/storage/motivations/lettre_123.pdf"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "job_offer": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Développeur PHP"
+                                                            },
+                                                            "company_name": {
+                                                                "type": "string",
+                                                                "example": "Ma Société"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/job-offers": {
+            "get": {
+                "tags": [
+                    "Job Offers"
+                ],
+                "summary": "Liste de toutes les offres d'emploi",
+                "description": "Récupère toutes les offres d'emploi disponibles (toutes entreprises confondues)",
+                "operationId": "ce1839836269a76819831f54d0baec54",
+                "responses": {
+                    "200": {
+                        "description": "Liste des offres récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Développeur PHP Senior"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Nous recherchons un développeur PHP expérimenté..."
+                                                    },
+                                                    "contract_type": {
+                                                        "type": "string",
+                                                        "example": "CDI"
+                                                    },
+                                                    "study_level": {
+                                                        "type": "string",
+                                                        "example": "Bac+5"
+                                                    },
+                                                    "end_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2025-12-31"
+                                                    },
+                                                    "company_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "employee_id": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/companies/{companyId}/job-offers": {
+            "get": {
+                "tags": [
+                    "Job Offers"
+                ],
+                "summary": "Liste des offres d'une entreprise",
+                "description": "Récupère toutes les offres d'emploi d'une entreprise spécifique",
+                "operationId": "8ffb58a77859f7656eb2a55bd06903e4",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des offres de l'entreprise récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Développeur PHP Senior"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Nous recherchons..."
+                                                    },
+                                                    "contract_type": {
+                                                        "type": "string",
+                                                        "example": "CDI"
+                                                    },
+                                                    "study_level": {
+                                                        "type": "string",
+                                                        "example": "Bac+5"
+                                                    },
+                                                    "end_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2025-12-31"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Entreprise introuvable"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Job Offers"
+                ],
+                "summary": "Créer une offre d'emploi",
+                "description": "Crée une nouvelle offre d'emploi pour une entreprise (RH/Admin uniquement)",
+                "operationId": "4f650696cab023ed621c432c5bc01d25",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Développeur PHP Senior"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nous recherchons un développeur PHP expérimenté avec minimum 5 ans d'expérience..."
+                                    },
+                                    "contract_type": {
+                                        "type": "string",
+                                        "maxLength": 100,
+                                        "example": "CDI"
+                                    },
+                                    "study_level": {
+                                        "type": "string",
+                                        "maxLength": 100,
+                                        "example": "Bac+5"
+                                    },
+                                    "end_at": {
+                                        "description": "Date de fin de l'offre",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-12-31"
+                                    },
+                                    "category_id": {
+                                        "description": "ID de la catégorie",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Offre d'emploi créée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Offre d'emploi créée avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Développeur PHP Senior"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Nous recherchons..."
+                                                },
+                                                "contract_type": {
+                                                    "type": "string",
+                                                    "example": "CDI"
+                                                },
+                                                "company_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "404": {
+                        "description": "Entreprise introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/companies/{companyId}/job-offers/{id}": {
+            "get": {
+                "tags": [
+                    "Job Offers"
+                ],
+                "summary": "Afficher une offre d'emploi",
+                "description": "Récupère les détails d'une offre d'emploi spécifique",
+                "operationId": "d88db805a46652398df56c7a8c716b9e",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'offre d'emploi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Offre d'emploi récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Développeur PHP Senior"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Nous recherchons un développeur PHP expérimenté..."
+                                                },
+                                                "contract_type": {
+                                                    "type": "string",
+                                                    "example": "CDI"
+                                                },
+                                                "study_level": {
+                                                    "type": "string",
+                                                    "example": "Bac+5"
+                                                },
+                                                "end_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-12-31"
+                                                },
+                                                "company_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "category_id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "employee_id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Offre d'emploi introuvable"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Job Offers"
+                ],
+                "summary": "Mettre à jour une offre d'emploi",
+                "description": "Met à jour une offre d'emploi existante (RH/Admin uniquement)",
+                "operationId": "0c0e04c84924eb41c5d5f181889cc1b9",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'offre d'emploi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Développeur PHP Lead"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nouvelle description..."
+                                    },
+                                    "contract_type": {
+                                        "type": "string",
+                                        "maxLength": 100,
+                                        "example": "CDI"
+                                    },
+                                    "study_level": {
+                                        "type": "string",
+                                        "maxLength": 100,
+                                        "example": "Bac+5"
+                                    },
+                                    "end_at": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2026-01-31"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 4
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Offre d'emploi mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Offre d'emploi mise à jour avec succès"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Développeur PHP Lead"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Offre d'emploi ou entreprise introuvable"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Job Offers"
+                ],
+                "summary": "Supprimer une offre d'emploi",
+                "description": "Supprime une offre d'emploi (RH/Admin uniquement)",
+                "operationId": "605b95d5698c42d84e0a121d74380173",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "in": "path",
+                        "description": "ID de l'entreprise",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'offre d'emploi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Offre d'emploi supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Offre d'emploi supprimée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Offre d'emploi ou entreprise introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/job-offers/search": {
+            "get": {
+                "tags": [
+                    "Job Offers"
+                ],
+                "summary": "Rechercher des offres d'emploi",
+                "description": "Recherche des offres d'emploi par mots-clés et/ou catégorie",
+                "operationId": "639b6764757ab60a767b8da410fc092a",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Mot-clé de recherche (titre, description)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 255,
+                            "example": "développeur php"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "ID de la catégorie",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Résultats de recherche",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Développeur PHP Senior"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Nous recherchons..."
+                                                    },
+                                                    "contract_type": {
+                                                        "type": "string",
+                                                        "example": "CDI"
+                                                    },
+                                                    "company_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Liste des utilisateurs",
+                "description": "Récupère la liste paginée de tous les utilisateurs (Admin uniquement)",
+                "operationId": "c457726701591d1183b53aa71fc13441",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Nombre d'éléments par page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des utilisateurs récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Liste des utilisateurs récupérée avec succès."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "first_name": {
+                                                                "type": "string",
+                                                                "example": "John"
+                                                            },
+                                                            "last_name": {
+                                                                "type": "string",
+                                                                "example": "Doe"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "john@example.com"
+                                                            },
+                                                            "birth_date": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "1990-01-01"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "123 rue Example"
+                                                            },
+                                                            "phone": {
+                                                                "type": "string",
+                                                                "example": "+33612345678"
+                                                            },
+                                                            "role": {
+                                                                "type": "string",
+                                                                "example": "user"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Accès refusé. Seuls les administrateurs peuvent voir tous les utilisateurs."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Créer un nouvel utilisateur",
+                "description": "Crée un nouvel utilisateur (Admin uniquement)",
+                "operationId": "592819a0265360b2014512d6dbfaf0e7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Doe"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "123 rue Example"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 20,
+                                        "example": "+33612345678"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "minLength": 6,
+                                        "example": "password123"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "enum": [
+                                            "user",
+                                            "admin"
+                                        ],
+                                        "example": "user"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur créé avec succès."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@example.com"
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "example": "1990-01-01"
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "123 rue Example"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "+33612345678"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "user"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Afficher un utilisateur",
+                "description": "Récupère les détails d'un utilisateur spécifique. Les utilisateurs peuvent voir leur propre profil, les admins peuvent voir tous les profils.",
+                "operationId": "36a33ff774d5cba33c039dec2c3e0287",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur récupéré avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur récupéré avec succès."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@example.com"
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "example": "1990-01-01"
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "123 rue Example"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "+33612345678"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "user"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Mettre à jour un utilisateur",
+                "description": "Met à jour les informations d'un utilisateur. Les utilisateurs peuvent modifier leur propre profil, les admins peuvent modifier tous les profils.",
+                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Doe"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "123 rue Example"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "maxLength": 20,
+                                        "example": "+33612345678"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "minLength": 6,
+                                        "example": "newpassword123"
+                                    },
+                                    "role": {
+                                        "description": "Uniquement modifiable par les admins",
+                                        "type": "string",
+                                        "enum": [
+                                            "user",
+                                            "admin"
+                                        ],
+                                        "example": "user"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur mis à jour avec succès."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "John"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "john@example.com"
+                                                },
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "user"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Supprimer un utilisateur",
+                "description": "Supprime un utilisateur. Les utilisateurs peuvent supprimer leur propre compte, les admins peuvent supprimer tous les comptes.",
+                "operationId": "fa56cffde745d3f152f95cbacd936c0b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur supprimé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Utilisateur supprimé avec succès."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé"
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Entrez votre token JWT",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "Companies",
+            "description": "Companies"
+        },
+        {
+            "name": "Companies - Employees",
+            "description": "Companies - Employees"
+        },
+        {
+            "name": "Job Applications",
+            "description": "Job Applications"
+        },
+        {
+            "name": "Job Offers",
+            "description": "Job Offers"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}

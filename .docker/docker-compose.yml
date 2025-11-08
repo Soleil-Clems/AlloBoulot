@@ -1,0 +1,67 @@
+services:
+
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: alloboulot_db
+    volumes:
+      - alloboulot-mysql-data:/var/lib/mysql
+      - ./alloboulot_db.sql:/docker-entrypoint-initdb.d/alloboulot_db.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  client:
+    container_name: AlloBoulot_client
+    build:
+      context: ..
+      dockerfile: .docker/dockerfile.client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../client/AlloBoulot:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  api:
+    container_name: AlloBoulot_api
+    build:
+      context: ..
+      dockerfile: .docker/dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../api/AlloBoulot:/var/www/html:cached
+      - /var/www/html/vendor
+    environment:
+      APP_ENV: local
+      APP_DEBUG: true
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: alloboulot_db
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      CHOKIDAR_USEPOLLING: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - "8083:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  alloboulot-mysql-data:

@@ -1,0 +1,43 @@
+import type { JobOfferRow } from "@app/db";
+
+export const offers: JobOfferRow[] = [
+  {
+    id: 1,
+    company_id: 10,
+    employee_id: 1,
+    category_id: 3,
+    title: "Forward Security Director",
+    description: "Nunc sed a nisl purus. Nibh dis faucibus proin lacus tristique. Sit congue non vitae odio sit erat in. Felis eu ultrices a sed massa. Commodo fringilla sed tempor risus laoreet ultricies ipsum. Habitasse morbi faucibus in iaculis lectus. Nisi enim feugiat enim volutpat. Sem quis viverra viverra odio mauris nunc. Et nunc ut tempus duis nisl sed massa. Ornare varius faucibus nisi vitae vitae cras ornare. Cras facilisis dignissim augue lorem amet adipiscing cursus fames mauris. Tortor amet porta proin in. Orci imperdiet nisi dignissim pellentesque morbi vitae. Quisque tincidunt metus lectus porta eget blandit euismod sem nunc. Tortor gravida amet amet sapien mauris massa.Tortor varius nam maecenas duis blandit elit sit sit. Ante mauris morbi diam habitant donec.",
+    contract_type: "CDI",
+    study_level: "BAC+2",
+    end_at: "2026-01-31T23:59:59Z",
+    created_at: "2025-10-07T10:00:00Z",
+    updated_at: "2025-10-07T10:00:00Z",
+  },
+  {
+    id: 2,
+    company_id: 11,
+    employee_id: 2,
+    category_id: 5,
+    title: "Frontend Developer React/TS",
+    description: "Nunc sed a nisl purus. Nibh dis faucibus proin lacus tristique. Sit congue non vitae odio sit erat in. Felis eu ultrices a sed massa. Commodo fringilla sed tempor risus laoreet ultricies ipsum. Habitasse morbi faucibus in iaculis lectus. Nisi enim feugiat enim volutpat. Sem quis viverra viverra odio mauris nunc. Et nunc ut tempus duis nisl sed massa. Ornare varius faucibus nisi vitae vitae cras ornare. Cras facilisis dignissim augue lorem amet adipiscing cursus fames mauris. Tortor amet porta proin in. Orci imperdiet nisi dignissim pellentesque morbi vitae. Quisque tincidunt metus lectus porta eget blandit euismod sem nunc. Tortor gravida amet amet sapien mauris massa.Tortor varius nam maecenas duis blandit elit sit sit. Ante mauris morbi diam habitant donec.",
+    contract_type: "CDD",
+    study_level: "BAC+3",
+    end_at: "2026-02-15T23:59:59Z",
+    created_at: "2025-10-07T10:05:00Z",
+    updated_at: "2025-10-07T10:05:00Z",
+  },
+  {
+    id: 3,
+    company_id: 10,
+    employee_id: 1,
+    category_id: 5,
+    title: "Data Analyst",
+    description: "Nunc sed a nisl purus. Nibh dis faucibus proin lacus tristique. Sit congue non vitae odio sit erat in. Felis eu ultrices a sed massa. Commodo fringilla sed tempor risus laoreet ultricies ipsum. Habitasse morbi faucibus in iaculis lectus. Nisi enim feugiat enim volutpat. Sem quis viverra viverra odio mauris nunc. Et nunc ut tempus duis nisl sed massa. Ornare varius faucibus nisi vitae vitae cras ornare. Cras facilisis dignissim augue lorem amet adipiscing cursus fames mauris. Tortor amet porta proin in. Orci imperdiet nisi dignissim pellentesque morbi vitae. Quisque tincidunt metus lectus porta eget blandit euismod sem nunc. Tortor gravida amet amet sapien mauris massa.Tortor varius nam",
+    contract_type: "CDD",
+    study_level: "BAC+5",
+    end_at: "2026-03-01T23:59:59Z",
+    created_at: "2025-10-07T10:10:00Z",
+    updated_at: "2025-10-08T10:10:00Z",
+  },
+];
