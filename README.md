@@ -171,6 +171,7 @@ For detailed deployment instructions, see our [Deployment Guide](docs/deployment
 ## Authors
 
 - Development Team @ Epitech MSc Pro 2028 :
+  
   Soleil Ouisol :
     - https://soleil-ouisol.fr/
     - https://github.com/Soleil-Clems
